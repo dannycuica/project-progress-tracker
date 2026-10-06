@@ -1,0 +1,93 @@
+﻿<section class="notes-card">
+
+  <div class="section-header">
+    <div>
+      <p class="section-label">REACTIVE FORM</p>
+      <h2>Progress Notes</h2>
+      <p class="section-description">
+        Record the latest project progress using Angular Reactive Forms.
+      </p>
+    </div>
+
+    <span class="count-badge">5 Controls</span>
+  </div>
+
+  <form
+    [formGroup]="progressNotesForm"
+    (ngSubmit)="onSubmit()"
+    novalidate
+  >
+
+    <div class="form-grid">
+
+      <div class="form-field">
+        <label for="projectName">Project Name</label>
+
+        <input
+          id="projectName"
+          type="text"
+          formControlName="projectName"
+          placeholder="Enter project name"
+        />
+      </div>
+
+      <div class="form-field">
+        <label for="date">Date</label>
+
+        <input
+          id="date"
+          type="date"
+          formControlName="date"
+        />
+      </div>
+
+      <div class="form-field">
+        <label for="currentStatus">Current Status</label>
+
+        <select
+          id="currentStatus"
+          formControlName="currentStatus"
+        >
+          <option value="On Track">On Track</option>
+          <option value="Needs Attention">Needs Attention</option>
+          <option value="Completed">Completed</option>
+        </select>
+      </div>
+
+      <div class="form-field">
+        <label for="teamMember">Team Member</label>
+
+        <input
+          id="teamMember"
+          type="text"
+          formControlName="teamMember"
+          placeholder="Enter team member"
+        />
+      </div>
+
+      <div class="form-field full-width">
+        <label for="progressNote">Progress Note</label>
+
+        <textarea
+          id="progressNote"
+          rows="5"
+          formControlName="progressNote"
+          placeholder="Enter the latest progress update"
+        ></textarea>
+      </div>
+
+    </div>
+
+    <button type="submit">
+      Save Progress Note
+    </button>
+
+    @if (submitted && progressNotesForm.valid) {
+      <div class="success-message">
+        Progress note submitted successfully.
+      </div>
+    }
+
+  </form>
+
+</section>
