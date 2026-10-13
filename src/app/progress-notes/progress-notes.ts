@@ -1,4 +1,5 @@
-﻿import { Component } from '@angular/core';
+﻿
+import { Component } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -15,7 +16,21 @@ import {
 })
 export class ProgressNotesComponent {
 
+  private readonly projectCodeMap: Record<string, string> = {
+    PPT101: 'Project Progress Tracker',
+    WEB202: 'Website Redesign',
+    APP303: 'Mobile Application Development',
+    DATA404: 'Data Analytics Dashboard'
+  };
+
+  projectCodeMessage = '';
+
   progressNotesForm = new FormGroup({
+
+    projectCode: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required]
+    }),
 
     projectName: new FormControl('', {
       nonNullable: true,
@@ -45,6 +60,25 @@ export class ProgressNotesComponent {
   });
 
   submitted = false;
+
+  onProjectCodeBlur(): void {
+    const code = this.progressNotesForm.controls.projectCode
+      .value
+      .trim()
+      .toUpperCase();
+
+    const projectName = this.projectCodeMap[code];
+
+    if (projectName) {
+      this.progressNotesForm.controls.projectName.setValue(projectName);
+      this.projectCodeMessage = '';
+    } else {
+      this.progressNotesForm.controls.projectName.setValue('');
+      this.projectCodeMessage = code
+        ? 'Project code not found.'
+        : '';
+    }
+  }
 
   onSubmit(): void {
     this.submitted = true;

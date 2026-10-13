@@ -9,45 +9,43 @@
       </p>
     </div>
 
-    <span class="count-badge">5 Controls</span>
+    <span class="count-badge">6 Controls</span>
   </div>
 
-  <form
-    [formGroup]="progressNotesForm"
-    (ngSubmit)="onSubmit()"
-    novalidate
-  >
+  <form [formGroup]="progressNotesForm" (ngSubmit)="onSubmit()" novalidate>
 
     <div class="form-grid">
 
       <div class="form-field">
+        <label for="projectCode">Project Code</label>
+
+        <input id="projectCode" type="text" formControlName="projectCode" placeholder="e.g. WEB202"
+          (blur)="onProjectCodeBlur()" aria-describedby="projectCodeMessage" />
+
+        @if (projectCodeMessage) {
+        <p id="projectCodeMessage" class="error-message" role="alert">
+          {{ projectCodeMessage }}
+        </p>
+        }
+      </div>
+
+      <div class="form-field">
         <label for="projectName">Project Name</label>
 
-        <input
-          id="projectName"
-          type="text"
-          formControlName="projectName"
-          placeholder="Enter project name"
-        />
+        <input id="projectName" type="text" formControlName="projectName"
+          placeholder="Automatically populated from project code" />
       </div>
 
       <div class="form-field">
         <label for="date">Date</label>
 
-        <input
-          id="date"
-          type="date"
-          formControlName="date"
-        />
+        <input id="date" type="date" formControlName="date" />
       </div>
 
       <div class="form-field">
         <label for="currentStatus">Current Status</label>
 
-        <select
-          id="currentStatus"
-          formControlName="currentStatus"
-        >
+        <select id="currentStatus" formControlName="currentStatus">
           <option value="On Track">On Track</option>
           <option value="Needs Attention">Needs Attention</option>
           <option value="Completed">Completed</option>
@@ -57,23 +55,14 @@
       <div class="form-field">
         <label for="teamMember">Team Member</label>
 
-        <input
-          id="teamMember"
-          type="text"
-          formControlName="teamMember"
-          placeholder="Enter team member"
-        />
+        <input id="teamMember" type="text" formControlName="teamMember" placeholder="Enter team member" />
       </div>
 
       <div class="form-field full-width">
         <label for="progressNote">Progress Note</label>
 
-        <textarea
-          id="progressNote"
-          rows="5"
-          formControlName="progressNote"
-          placeholder="Enter the latest progress update"
-        ></textarea>
+        <textarea id="progressNote" rows="5" formControlName="progressNote"
+          placeholder="Enter the latest progress update"></textarea>
       </div>
 
     </div>
@@ -83,9 +72,9 @@
     </button>
 
     @if (submitted && progressNotesForm.valid) {
-      <div class="success-message">
-        Progress note submitted successfully.
-      </div>
+    <div class="success-message">
+      Progress note submitted successfully.
+    </div>
     }
 
   </form>
